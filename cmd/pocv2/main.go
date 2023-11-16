@@ -62,9 +62,6 @@ func main() {
 	// })
 
 	cfg2, _ := config.LoadDefaultConfig(context.TODO())
-	// cred := aws.NewCredentialsCache(credentials.NewStaticCredentialsProvider("ASIAVHY75ILAD2FJG2NH",
-	// 	"1rAm3GE1IzTKdUhCOTR1z+PWo15xJWurnvE5VKdf",
-	// 	"IQoJb3JpZ2luX2VjEDwaDmFwLXNvdXRoZWFzdC0xIkcwRQIhAJJSqwJW9S2Fhf+/fF4x3DKJbbmy51gbnsh0EIWPUxptAiAl08/mnpdus/zkqQlkh3M5z9M9U2OmraAkZyfTEZ04UCq3AwiF//////////8BEAMaDDM2MDMwNzMxMTI5NiIMyTPXba0SV0KaH4cxKosDac2y4czo7nGwejyyBS+fGcF2hT2g3n7HeBMIByk4NeM+4lF/Hh1OpP2nPm75UrBhBBWNknRT4S9dXXQTdpwAhOxT151PCFQb/17k1GANZO+OjPNw/F10LhzbU07YqBDxCS4xKuERo7ZYg+Zq7xwZaVDt1uMpRLrbYSZvO5otioBVpM2atoPHfff3Llpsp6q9DvCP4sO0pZZkA/2Jsf/CY5PFOGFqb2x69ombYzSfZUUU4roZOkQrH7W17km/8Ql1sjcxkVWDWyWruuA6FcfjcLa3vU5opALq+B19UJeGFkZOqNgK3XbXSsiVmYI6kgl3Vq0I1h1Xblw7KpzQqvKwS4VJKngCke033hHLLVprHif/V21NtwQoUM1qZvoYlqtgC3F9snBjTZ03e7HzfXGSwTlYp7yGTfLlkgxpu7LQQ5K/97fz5feQLRhKMXM7AxibV+Nw2aJRd6JVL7z2UYrcrnWhb1nbwz6sKSyflpCznYpwNMVePPO8VCNrL5wyvAq+hhr6tU/x7iG+JAwwrabWqgY6nQHzbXWCeDrpnjE7/aSUjx1rgufsW0hLhBtZz43UT3jdOCVvLWruQXGe9EOCryL6InOtF4UTBaSMnOwuvO/+j15rAOqlnFPqyNw0ir8QSGB/g4hN3w0Va6h4IPGWWBMz06efTqhYBNrD93+PYHJtVbV2Sz7b1Du/3taz0jDFM8XTIaK7ekcOAiEw4Q5ImoraCRyveBsCTMl2ITLZ39aI"))
 
 	cred := aws.NewCredentialsCache(credentials.NewStaticCredentialsProvider(*result.Credentials.AccessKeyId,
 		*result.Credentials.SecretAccessKey,
