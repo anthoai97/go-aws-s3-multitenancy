@@ -22,7 +22,7 @@ func NewStorageS3(bucket string, logger log.Logger) *StorageS3 {
 	}
 }
 
-func (*StorageS3) generateS3Client(ctx context.Context, cred *aws.CredentialsCache) (*s3.Client, error) {
+func (*StorageS3) GenerateS3Client(ctx context.Context, cred *aws.CredentialsCache) (*s3.Client, error) {
 	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		return nil, err
@@ -33,8 +33,8 @@ func (*StorageS3) generateS3Client(ctx context.Context, cred *aws.CredentialsCac
 	return client, nil
 }
 
-func (storage *StorageS3) generatePresignClient(ctx context.Context, cred *aws.CredentialsCache) (*s3.PresignClient, error) {
-	s3Client, err := storage.generateS3Client(ctx, cred)
+func (storage *StorageS3) GeneratePresignClient(ctx context.Context, cred *aws.CredentialsCache) (*s3.PresignClient, error) {
+	s3Client, err := storage.GenerateS3Client(ctx, cred)
 	if err != nil {
 		return nil, err
 	}

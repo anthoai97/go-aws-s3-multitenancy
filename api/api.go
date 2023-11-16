@@ -13,7 +13,7 @@ type Business interface {
 	DeleteS3Objects(ctx context.Context, paths []*entity.RequestObjectDelete) (*string, error)
 	UploadS3ObjectsByGenerateUrl(ctx context.Context, objects []*entity.RequestFileUpload) ([]*entity.ResponseFileUpload, error)
 	DownloadS3ObjectsByGenerateUrl(ctx context.Context, objects []string) (*string, error)
-	GenerateSTSCredential(ctx context.Context, tenent string) (*types.Credentials, error)
+	GenerateSTSCredential(ctx context.Context, tenant string) (*types.Credentials, error)
 }
 
 type api struct {

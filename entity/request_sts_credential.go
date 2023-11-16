@@ -1,5 +1,5 @@
 package entity
 
 type RequestSTSCredential struct {
-	Tenent string `json:"tenent" binding:"required"`
+	Tenant string `json:"tenant" binding:"required"`
 }

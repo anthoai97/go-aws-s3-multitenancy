@@ -42,15 +42,7 @@ func GetEnvVar[T any](key string, defaultValue T) T {
 }
 
 func GetObjectExtention(path string) string {
-	ext := strings.ToLower(filepath.Ext(path))
-
-	if len(ext) < 1 {
-		return ""
-	} else if contains(IMAGE_EXTENTIONS, ext) {
-		return ext
-	} else {
-		return ".json"
-	}
+	return strings.ToLower(filepath.Ext(path))
 }
 
 func FormatBucketPrefixForTree(path string) string {

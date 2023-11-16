@@ -18,7 +18,12 @@ func (biz *business) ListS3StorageTree(ctx context.Context, path, tenant string)
 		path = "/" + path
 	}
 
-	res, err := biz.S3.GetObjectTree(ctx, tenant+path, cred)
+	client, err := biz.S3.GenerateS3Client(ctx, cred)
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := biz.S3.GetObjectTree(ctx, tenant+path, client)
 	if err != nil {
 		return nil, err
 	}

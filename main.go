@@ -49,12 +49,7 @@ func init() {
 }
 
 func main() {
-
-	// _, err := vendorMachine.RequestVendorCredentials(tenant)
-	// if err != nil {
-	// 	fmt.Println("aaa", err)
-	// }
-	fmt.Println("Start Storage Service....")
+	Log.Info("Start Storage Service....")
 	router := gin.New()
 	router.Use(gin.Recovery(), gin.Logger())
 
@@ -95,6 +90,7 @@ func setupRoutes(router *gin.Engine) {
 	routerS3.Use(middleware.CheckSTSCrendential(logger.New("log-scope", "middleware")))
 	{
 		routerS3.GET("/tree", api.ListS3StorageTreeHdl())
+		routerS3.POST("/files", api.UploadS3ObjectsByGenerateUrlHdl())
 		// routerS3.POST("/folder", api.PostS3ObjectFolderHdl())
 		// routerS3.POST("/files", api.PostS3FilesByGenerateUrlHdl())
 		// routerS3.POST("/download/files", api.PostDownloadS3FilesHdl())

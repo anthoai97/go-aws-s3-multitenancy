@@ -10,15 +10,10 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-func (s *StorageS3) GetObjectTree(ctx context.Context, path string, cred *aws.CredentialsCache) (data *entity.S3ObjectTree, err error) {
+func (s *StorageS3) GetObjectTree(ctx context.Context, path string, client *s3.Client) (data *entity.S3ObjectTree, err error) {
 	// Timeout hanlde
 	ctx, cancel := context.WithTimeout(ctx, core.REQUEST_TIMEOUT*time.Second)
 	defer cancel()
-
-	client, err := s.generateS3Client(ctx, cred)
-	if err != nil {
-		return nil, err
-	}
 
 	path = core.FormatBucketPrefixForTree(path)
 	respcn := make(chan core.ResponseChan[*entity.S3ObjectTree])

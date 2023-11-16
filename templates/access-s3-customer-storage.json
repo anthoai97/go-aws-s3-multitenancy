@@ -17,7 +17,7 @@
     {
       "Sid": "AccessTenantObject",
       "Action": [
-        "s3:Get*"
+        "s3:*Object"
       ],
       "Effect": "Allow",
       "Resource": [

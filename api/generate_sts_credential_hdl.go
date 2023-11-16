@@ -18,12 +18,12 @@ func (api *api) GenerateSTSCredentialHdl() func(*gin.Context) {
 			return
 		}
 
-		if len(json.Tenent) < 1 {
+		if len(json.Tenant) < 1 {
 			core.WriteErrorResponse(c, core.ErrBadRequest.WithError(core.ErrBadRequest.ErrorField))
 			return
 		}
 
-		cred, err := api.business.GenerateSTSCredential(c, json.Tenent)
+		cred, err := api.business.GenerateSTSCredential(c, json.Tenant)
 		if err != nil {
 			core.WriteErrorResponse(c, core.ErrBadRequest.WithError(err.Error()))
 			return
