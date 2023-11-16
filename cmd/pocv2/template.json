@@ -1,0 +1,28 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListObjectsInBucket",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": [
+        "arn:aws:s3:::dsr-customer-storage-dev"
+      ],
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": ["{{.Tenant}}/*"]
+        }
+      }
+    },
+    {
+      "Sid": "AccessTenantObject",
+      "Action": [
+        "s3:Get*"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "arn:aws:s3:::dsr-customer-storage-dev/{{.Tenant}}/*"
+      ]
+    }
+  ]
+}
