@@ -14,6 +14,7 @@ type Business interface {
 	UploadS3ObjectsByGenerateUrl(ctx context.Context, objects []*entity.RequestFileUpload) ([]*entity.ResponseFileUpload, error)
 	DownloadS3ObjectsByGenerateUrl(ctx context.Context, objects []string) (*string, error)
 	GenerateSTSCredential(ctx context.Context, tenant string) (*types.Credentials, error)
+	DeleteS3Folder(sctx context.Context, req *entity.RequestFolderDelete) (*string, error)
 }
 
 type api struct {

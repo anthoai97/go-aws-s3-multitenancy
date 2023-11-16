@@ -95,6 +95,7 @@ func setupRoutes(router *gin.Engine) {
 		// routerS3.POST("/files", api.PostS3FilesByGenerateUrlHdl())
 		// routerS3.POST("/download/files", api.PostDownloadS3FilesHdl())
 		// routerS3.POST("/download/folder", api.PostDownloadS3FolderHdl())
-		// routerS3.DELETE("/objects", api.DeleteS3ObjectsHdl())
+		routerS3.DELETE("/objects", api.DeleteS3ObjectsHdl())
+		routerS3.DELETE("/folder", api.DeleteS3FolderHdl())
 	}
 }

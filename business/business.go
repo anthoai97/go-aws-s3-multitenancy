@@ -1,11 +1,14 @@
 package business
 
 import (
+	"context"
+
 	"github.com/anthoai97/go-aws-s3-multitenancy/core"
 	"github.com/anthoai97/go-aws-s3-multitenancy/repository/storage_s3"
 	"github.com/anthoai97/go-aws-s3-multitenancy/repository/token_vendor_machine"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/credentials"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/gin-gonic/gin"
 
 	md "github.com/anthoai97/go-aws-s3-multitenancy/middleware"
@@ -41,4 +44,34 @@ func (biz *business) LoadSTSCredentialClaims(ctx *gin.Context) (*aws.Credentials
 	cred := aws.NewCredentialsCache(credentials.NewStaticCredentialsProvider(access, secret, session))
 	biz.Logger.Debug("LoadSTSCredentialClaims", "Step 2", "cred, ok")
 	return cred, nil
+}
+
+func (biz *business) getAllObjects(ctx context.Context, path string, client *s3.Client) ([]string, error) {
+	var next string
+	var err error
+	var objectPaths []string
+
+	for {
+		resp, errp := biz.S3.ListObject(ctx, path, next, client)
+		if errp != nil {
+			err = errp
+			break
+		}
+
+		for _, file := range resp.Contents {
+			objectPaths = append(objectPaths, *file.Key)
+		}
+
+		if resp.IsTruncated {
+			next = *resp.NextContinuationToken
+		} else {
+			break
+		}
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return objectPaths, nil
 }
