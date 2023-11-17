@@ -67,10 +67,10 @@ func main() {
 
 func setupRoutes(router *gin.Engine) {
 	fmt.Println("Hear we go again")
-	roleArn := "arn:aws:iam::360307311296:role/ri.developer-assume-role" // will be taken from config file
-	externalID := "someexternalid"                                       // Must match role trust entity
-	// tenant := "dataspire"
-	bucket := core.GetEnvVar("BUCKET", "dsr-customer-storage-dev")
+
+	roleArn := core.GetEnvVar[string]("ROLE_ARN", "")       // will be taken from config file
+	externalID := core.GetEnvVar[string]("EXTERNAL_ID", "") // Must match role trust entity
+	bucket := core.GetEnvVar("BUCKET", "")
 
 	// Middleware
 	// Token vendor machine
@@ -92,10 +92,6 @@ func setupRoutes(router *gin.Engine) {
 		routerS3.GET("/tree", api.ListS3StorageTreeHdl())
 		routerS3.POST("/object-upload", api.UploadS3ObjectsByGenerateUrlHdl())
 		routerS3.POST("/object-download", api.DownloadS3ObjectsByGenerateUrlHdl())
-		// routerS3.POST("/folder", api.PostS3ObjectFolderHdl())
-		// routerS3.POST("/files", api.PostS3FilesByGenerateUrlHdl())
-		// routerS3.POST("/download/files", api.PostDownloadS3FilesHdl())
-		// routerS3.POST("/download/folder", api.PostDownloadS3FolderHdl())
 		routerS3.DELETE("/objects", api.DeleteS3ObjectsHdl())
 		routerS3.DELETE("/folder", api.DeleteS3FolderHdl())
 	}
