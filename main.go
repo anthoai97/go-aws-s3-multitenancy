@@ -90,7 +90,8 @@ func setupRoutes(router *gin.Engine) {
 	routerS3.Use(middleware.CheckSTSCrendential(logger.New("log-scope", "middleware")))
 	{
 		routerS3.GET("/tree", api.ListS3StorageTreeHdl())
-		routerS3.POST("/files", api.UploadS3ObjectsByGenerateUrlHdl())
+		routerS3.POST("/object-upload", api.UploadS3ObjectsByGenerateUrlHdl())
+		routerS3.POST("/object-download", api.DownloadS3ObjectsByGenerateUrlHdl())
 		// routerS3.POST("/folder", api.PostS3ObjectFolderHdl())
 		// routerS3.POST("/files", api.PostS3FilesByGenerateUrlHdl())
 		// routerS3.POST("/download/files", api.PostDownloadS3FilesHdl())

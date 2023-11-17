@@ -27,7 +27,7 @@ func (biz *business) UploadS3ObjectsByGenerateUrl(ctx context.Context, objects [
 
 	// validate and process
 	for _, file := range objects {
-		if len(file.FileName) < 1 || len(file.FilePath) < 1 || len(file.Tenant) < 1 {
+		if len(file.FilePath) < 1 || len(file.Tenant) < 1 {
 			return nil, core.ErrBadRequest
 		}
 
@@ -44,15 +44,8 @@ func (biz *business) UploadS3ObjectsByGenerateUrl(ctx context.Context, objects [
 		go func(file *entity.RequestFileUpload, s3client *s3.PresignClient) {
 			defer wg.Done()
 
-			path := file.FilePath
-			if !strings.HasSuffix(file.FilePath, "/") {
-				path = file.FilePath + "/"
-			}
-
-			path = file.Tenant + path + file.FileName
-			biz.Logger.Debug("UploadS3ObjectsByGenerateUrl", "path", path)
-
-			url, err := biz.S3.UploadObjectByGenerateUrl(ctx, path, s3client)
+			biz.Logger.Debug("UploadS3ObjectsByGenerateUrl", "path", file.Tenant+file.FilePath)
+			url, err := biz.S3.UploadObjectByGenerateUrl(ctx, file.Tenant+file.FilePath, s3client)
 			if err != nil {
 				resChan <- ptr.String(err.Error())
 				return
@@ -66,7 +59,7 @@ func (biz *business) UploadS3ObjectsByGenerateUrl(ctx context.Context, objects [
 	for _, file := range objects {
 		url := <-resChan
 		resp = append(resp, &entity.ResponseFileUpload{
-			FileName:  file.FileName,
+			Tenant:    file.Tenant,
 			FilePath:  file.FilePath,
 			UploadUrl: url,
 		})

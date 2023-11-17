@@ -12,7 +12,7 @@ type Business interface {
 	RenameS3Object(ctx context.Context, path string) (*entity.S3ObjectTree, error)
 	DeleteS3Objects(ctx context.Context, paths []*entity.RequestObjectDelete) (*string, error)
 	UploadS3ObjectsByGenerateUrl(ctx context.Context, objects []*entity.RequestFileUpload) ([]*entity.ResponseFileUpload, error)
-	DownloadS3ObjectsByGenerateUrl(ctx context.Context, objects []string) (*string, error)
+	DownloadS3ObjectsByGenerateUrl(ctx context.Context, object *entity.RequestFileDownload) (*entity.ResponseFilDownload, error)
 	GenerateSTSCredential(ctx context.Context, tenant string) (*types.Credentials, error)
 	DeleteS3Folder(sctx context.Context, req *entity.RequestFolderDelete) (*string, error)
 }
