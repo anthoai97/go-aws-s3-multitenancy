@@ -23,9 +23,10 @@ type Env string
 
 var (
 	Log            = logger.New("logscope", "master")
-	verbose        = flag.Bool("v", false, "more verbose logs")
+	verbose        = flag.Bool("v", true, "more verbose logs")
 	Develop    Env = "develop"
 	Production Env = "production"
+	QA         Env = "qa"
 )
 
 func init() {

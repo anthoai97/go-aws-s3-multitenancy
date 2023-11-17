@@ -59,6 +59,7 @@ func (s *StorageS3) GetObjectTree(ctx context.Context, path string, client *s3.C
 				Key:          cont.Key,
 				Size:         cont.Size,
 				LastModified: cont.LastModified,
+				StorageClass: (*string)(&cont.StorageClass),
 			})
 		}
 

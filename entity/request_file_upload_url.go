@@ -6,7 +6,9 @@ type RequestFileUpload struct {
 }
 
 type ResponseFileUpload struct {
-	Tenant    string  `json:"tenant"`
-	Path      string  `json:"path"`
-	UploadUrl *string `json:"upload_url"`
+	Tenant         string  `json:"tenant"`
+	Path           string  `json:"path"`
+	UploadUrl      *string `json:"upload_url"`
+	HeaderTagKey   string  `json:"header_tags_key"`
+	HeaderTagValue string  `json:"header_tags_value"`
 }

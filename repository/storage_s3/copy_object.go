@@ -2,6 +2,7 @@ package storage_s3
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/anthoai97/go-aws-s3-multitenancy/core"
@@ -18,16 +19,18 @@ func (s *StorageS3) CopyObject(ctx context.Context, path, newPath string, client
 	respcn := make(chan core.ResponseChan[bool])
 
 	go func() {
+		s.Logger.Debug("CopyObject", "path", fmt.Sprintf("%v/%v", s.Bucket, path), "newPath", newPath)
 		input := &s3.CopyObjectInput{
 			Bucket:           aws.String(s.Bucket),
-			CopySource:       &path,
-			Key:              &newPath,
+			CopySource:       aws.String(fmt.Sprintf("%v/%v", s.Bucket, path)),
+			Key:              aws.String(newPath),
 			TaggingDirective: types.TaggingDirectiveCopy,
 		}
 
 		_, err := client.CopyObject(ctx, input)
 
 		if err != nil {
+			s.Logger.Debug("CopyObject", "err", err)
 			respcn <- core.ResponseChan[bool]{
 				Data:  false,
 				Error: err,
@@ -35,6 +38,7 @@ func (s *StorageS3) CopyObject(ctx context.Context, path, newPath string, client
 			return
 		}
 
+		s.Logger.Debug("CopyObject", "data", "Copy object successful")
 		respcn <- core.ResponseChan[bool]{
 			Data:  true,
 			Error: err,

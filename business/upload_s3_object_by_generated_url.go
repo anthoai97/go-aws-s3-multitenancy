@@ -45,7 +45,7 @@ func (biz *business) UploadS3ObjectsByGenerateUrl(ctx context.Context, objects [
 			defer wg.Done()
 
 			biz.Logger.Debug("UploadS3ObjectsByGenerateUrl", "path", file.Tenant+file.Path)
-			url, err := biz.S3.UploadObjectByGenerateUrl(ctx, file.Tenant+file.Path, s3client)
+			url, err := biz.S3.UploadObjectByGenerateUrl(ctx, file.Tenant+file.Path, biz.defaultObjectTagging(file.Tenant), s3client)
 			if err != nil {
 				resChan <- ptr.String(err.Error())
 				return
@@ -59,9 +59,11 @@ func (biz *business) UploadS3ObjectsByGenerateUrl(ctx context.Context, objects [
 	for _, file := range objects {
 		url := <-resChan
 		resp = append(resp, &entity.ResponseFileUpload{
-			Tenant:    file.Tenant,
-			Path:      file.Path,
-			UploadUrl: url,
+			Tenant:         file.Tenant,
+			Path:           file.Path,
+			UploadUrl:      url,
+			HeaderTagKey:   "x-amz-tagging",
+			HeaderTagValue: biz.defaultObjectTagging(file.Tenant),
 		})
 	}
 

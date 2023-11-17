@@ -4,7 +4,10 @@
     {
       "Sid": "ListObjectsInBucket",
       "Effect": "Allow",
-      "Action": "s3:ListBucket",
+      "Action": [
+        "s3:ListBucket",
+        "s3:ListTagsForResource"
+      ],
       "Resource": [
         "arn:aws:s3:::{{.Bucket}}"
       ],
@@ -17,7 +20,7 @@
     {
       "Sid": "AccessTenantObject",
       "Action": [
-        "s3:*Object"
+        "s3:*"
       ],
       "Effect": "Allow",
       "Resource": [

@@ -28,7 +28,7 @@ func (biz *business) RenameS3Object(ctx context.Context, object *entity.RequestF
 		object.NewPath = "/" + object.NewPath
 	}
 
-	success, err := biz.S3.CopyObject(ctx, object.Path, object.NewPath, client)
+	success, err := biz.S3.CopyObject(ctx, object.Tenant+object.Path, object.Tenant+object.NewPath, client)
 	if err != nil {
 		return nil, err
 	}
@@ -38,7 +38,7 @@ func (biz *business) RenameS3Object(ctx context.Context, object *entity.RequestF
 		return nil, fmt.Errorf("rename object failed")
 	}
 
-	_, err = biz.S3.DeleteObjects(ctx, []string{object.Path}, client)
+	_, err = biz.S3.DeleteObjects(ctx, []string{object.Tenant + object.Path}, client)
 	if err != nil {
 		return nil, err
 	}

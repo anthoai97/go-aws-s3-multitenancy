@@ -29,6 +29,11 @@ func NewBusiness(TVM *token_vendor_machine.TokenVendorMachine, storage_s3 *stora
 	}
 }
 
+func (*business) defaultObjectTagging(tenant string) string {
+	env := core.GetEnvVar("ENV", "develop")
+	return "dsrCustomer=" + tenant + "&" + "environment=" + env
+}
+
 func (biz *business) LoadSTSCredentialClaims(ctx *gin.Context) (*aws.CredentialsCache, error) {
 	access := ctx.GetString(md.CREDENTIAL_ACCESS_KEY)
 	secret := ctx.GetString(md.CREDENTIAL_SECRET_KEY)

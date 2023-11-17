@@ -6,6 +6,7 @@ type S3Object struct {
 	Key          *string    `json:"name"`
 	LastModified *time.Time `json:"last_modified"`
 	Size         int64      `json:"size"`
+	StorageClass *string    `json:"storate_class"`
 }
 
 type S3ObjectTree struct {
