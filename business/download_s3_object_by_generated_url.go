@@ -19,18 +19,18 @@ func (biz *business) DownloadS3ObjectsByGenerateUrl(ctx context.Context, object 
 		return nil, err
 	}
 
-	if !strings.HasPrefix(object.FilePath, "/") {
-		object.FilePath = "/" + object.FilePath
+	if !strings.HasPrefix(object.Path, "/") {
+		object.Path = "/" + object.Path
 	}
 
-	url, err := biz.S3.DownloadObjectByGenerateUrl(ctx, object.Tenant+object.FilePath, client)
+	url, err := biz.S3.DownloadObjectByGenerateUrl(ctx, object.Tenant+object.Path, client)
 	if err != nil {
 		return nil, err
 	}
 
 	return &entity.ResponseFilDownload{
-		Url:      url,
-		Tenant:   object.Tenant,
-		FilePath: object.FilePath,
+		Url:    url,
+		Tenant: object.Tenant,
+		Path:   object.Path,
 	}, nil
 }

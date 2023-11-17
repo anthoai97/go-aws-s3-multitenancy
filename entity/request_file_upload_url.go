@@ -1,12 +1,12 @@
 package entity
 
 type RequestFileUpload struct {
-	Tenant   string `json:"tenant" binding:"required"`
-	FilePath string `json:"filePath" binding:"required"`
+	Tenant string `json:"tenant" binding:"required"`
+	Path   string `json:"path" binding:"required"`
 }
 
 type ResponseFileUpload struct {
 	Tenant    string  `json:"tenant"`
-	FilePath  string  `json:"file_path"`
+	Path      string  `json:"path"`
 	UploadUrl *string `json:"upload_url"`
 }
