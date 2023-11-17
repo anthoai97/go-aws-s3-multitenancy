@@ -18,12 +18,12 @@ func (api *api) RenameS3ObjectslHdl() func(*gin.Context) {
 			return
 		}
 
-		if len(json.FilePath) < 1 || len(json.Tenant) < 1 {
+		if len(json.Path) < 1 || len(json.Tenant) < 1 {
 			core.WriteErrorResponse(c, core.ErrBadRequest.WithError(core.ErrBadRequest.ErrorField))
 			return
 		}
 
-		url, err := api.business.DownloadS3ObjectsByGenerateUrl(c, json)
+		url, err := api.business.RenameS3Object(c, json)
 		if err != nil {
 			core.WriteErrorResponse(c, core.ErrBadRequest.WithError(err.Error()).WithDebug(err.Error()))
 			return

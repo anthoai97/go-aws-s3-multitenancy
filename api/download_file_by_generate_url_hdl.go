@@ -18,7 +18,7 @@ func (api *api) DownloadS3ObjectsByGenerateUrlHdl() func(*gin.Context) {
 			return
 		}
 
-		if len(json.FilePath) < 1 || len(json.Tenant) < 1 {
+		if len(json.Path) < 1 || len(json.Tenant) < 1 {
 			core.WriteErrorResponse(c, core.ErrBadRequest.WithError(core.ErrBadRequest.ErrorField))
 			return
 		}
