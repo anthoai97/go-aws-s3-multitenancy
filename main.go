@@ -23,7 +23,7 @@ type Env string
 
 var (
 	Log            = logger.New("logscope", "master")
-	verbose        = flag.Bool("v", true, "more verbose logs")
+	verbose        = flag.Bool("v", false, "more verbose logs")
 	Develop    Env = "develop"
 	Production Env = "production"
 )
@@ -51,6 +51,7 @@ func init() {
 func main() {
 	Log.Info("Start Storage Service....")
 	router := gin.New()
+
 	router.Use(gin.Recovery(), gin.Logger())
 
 	router.GET("/ping", func(c *gin.Context) {
